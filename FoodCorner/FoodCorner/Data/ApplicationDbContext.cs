@@ -6,11 +6,11 @@ namespace FoodCorner.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public DbSet<Food> Foods;
-        public DbSet<Order> Orders;
-        public DbSet<Restaurant> Restaurants;
-        public DbSet<Review> Reviews;
-        public DbSet<User> Users;
+        public DbSet<Food> Foods { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

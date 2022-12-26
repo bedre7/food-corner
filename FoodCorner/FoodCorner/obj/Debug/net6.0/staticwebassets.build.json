@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UmR466y3cg5aQ7eU9Mca6HOQ1oM05ddR/8wl/Of7/E4=",
+  "Hash": "obBhm+68OhhPHhY7o1FBC3zf1EoDYbZ3VaYUNmxXVW0=",
   "Source": "FoodCorner",
   "BasePath": "_content/FoodCorner",
   "Mode": "Default",
@@ -1120,6 +1120,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\lib\\bootstrap\\dist\\css\\_bootswatch.scss",
+      "SourceId": "FoodCorner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\",
+      "BasePath": "_content/FoodCorner",
+      "RelativePath": "lib/bootstrap/dist/css/_bootswatch.scss",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\_bootswatch.scss"
+    },
+    {
+      "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\lib\\bootstrap\\dist\\css\\_variables.scss",
+      "SourceId": "FoodCorner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\",
+      "BasePath": "_content/FoodCorner",
+      "RelativePath": "lib/bootstrap/dist/css/_variables.scss",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\_variables.scss"
     },
     {
       "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
