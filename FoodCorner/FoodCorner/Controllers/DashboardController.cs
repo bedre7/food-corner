@@ -10,6 +10,7 @@ namespace FoodCorner.Controllers
         {
             return RedirectToAction("List", "Restaurant");
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult AddRestaurant()
         {
             return RedirectToAction("Add", "Restaurant");

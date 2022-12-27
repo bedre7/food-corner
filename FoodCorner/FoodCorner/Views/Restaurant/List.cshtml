@@ -6,7 +6,7 @@
 
 <h1>All Restuarants</h1>
 
-@if(User.IsInRole("Admin"))
+@if (User.IsInRole("Admin"))
 {
     <p>
         <a class="btn btn-info" asp-action="Add">   Add New   </a>
@@ -14,20 +14,27 @@
 }
 
 <div class="row row-cols-1 row-cols-md-4">
-@foreach (var item in Model) {
-  <div class="col mb-4">
-    <div class="card">
-      <img src="@item.LogoUrl" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">@item.Name</h5>
-        <h4 class="card-text">@item.Address</h4>
-        <a class="btn btn-primary stretched-link" asp-action="Details" asp-route-id="@item.RestaurantID">Details</a>
-        @if(User.IsInRole("Admin"))
-        {
-            <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.RestaurantID">Edit</a>
-            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.RestaurantID">Delete</a>
-        }
-      </div>
-    </div>
-  </div>
-}
+    @foreach (var item in Model)
+    {
+        <div class="col mb-4">
+            <div class="card">
+                <img src="@item.LogoUrl" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">@item.Name</h3>
+                    <h5 class="mb-2">📌@item.Address</h5>
+                    <h6 class="mb-1">
+                        @*<span class="badge badge-info">@item.Rating</span>*@
+                        <span class="badge badge-info">Rating: 9</span>
+                    </h6>
+                    <div class="d-flex justify-content-around">
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.RestaurantID">Details</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.RestaurantID">Edit</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.RestaurantID">Delete</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
