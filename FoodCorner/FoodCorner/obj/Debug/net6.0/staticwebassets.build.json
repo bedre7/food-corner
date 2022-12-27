@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "obBhm+68OhhPHhY7o1FBC3zf1EoDYbZ3VaYUNmxXVW0=",
+  "Hash": "WGIQDV0liUSGrMb6FmAYDH3EqP5cENnONLwhlfpYLXk=",
   "Source": "FoodCorner",
   "BasePath": "_content/FoodCorner",
   "Mode": "Default",
@@ -1071,6 +1071,40 @@
       "OriginalItemSpec": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\FoodCorner.bundle.scp.css"
     },
     {
+      "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\css\\flatly.css",
+      "SourceId": "FoodCorner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\",
+      "BasePath": "_content/FoodCorner",
+      "RelativePath": "css/flatly.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\flatly.css"
+    },
+    {
+      "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\css\\restaurant.css",
+      "SourceId": "FoodCorner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\",
+      "BasePath": "_content/FoodCorner",
+      "RelativePath": "css/restaurant.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\restaurant.css"
+    },
+    {
       "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\css\\site.css",
       "SourceId": "FoodCorner",
       "SourceType": "Discovered",
@@ -2123,6 +2157,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\svg\\location.svg",
+      "SourceId": "FoodCorner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\",
+      "BasePath": "_content/FoodCorner",
+      "RelativePath": "svg/location.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\svg\\location.svg"
+    },
+    {
+      "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\svg\\star-full.svg",
+      "SourceId": "FoodCorner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\",
+      "BasePath": "_content/FoodCorner",
+      "RelativePath": "svg/star-full.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\svg\\star-full.svg"
     }
   ]
 }

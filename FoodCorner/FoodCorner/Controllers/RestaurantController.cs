@@ -18,15 +18,41 @@ namespace FoodCorner.Controllers
         {
             return View();
         }
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return View("Error");
+            }
+            var restaurant = _db.Restaurants.FirstOrDefault(r => r.RestaurantID == id);
+            if (restaurant == null)
+            {
+                ViewBag.error = "No such restaurant was found";
+                return View("Error");
+            }
+            var restaurantFoods = this._db.Foods
+                                    .Include(f => f.Restaurant)
+                                    .Where(f => f.RestaurantID == restaurant.RestaurantID)
+                                    .ToList();
+
+            TempData["RestaurantFoods"] = restaurantFoods;
+
+            return View(restaurant);
+        }
         [Authorize(Roles = "Admin")]
         public IActionResult Add()
         {
             return View();
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult Edit(int ?id)
+        public IActionResult Edit()
         {
-            TempData["RestaurantID"] = id;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Edit(int? id)
+        {
+            //check validity
             return View();
         }
         [HttpPost]
@@ -55,11 +81,11 @@ namespace FoodCorner.Controllers
             Restaurant restaurant = this._db.Restaurants.FirstOrDefault(r => r.RestaurantID == id);
             if (restaurant == null)
             {
-                ViewBag.error = "No restaurant was found";
+                ViewBag.error = "No such restaurant was found";
                 return View("Error");
             }
 
-            return RedirectToAction("Add", "Food", id);
+            return RedirectToAction("Add", "Food", new { id });
         }
         public IActionResult Error()
         {

@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Edit";
-    int restaurantID = (int)TempData["RestaurantID"];
 }
 
 <h1>Edit</h1>
@@ -42,8 +41,7 @@
 </div>
 
 <div>
-    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
-    <a class="btn btn-info" asp-action="AddFood" asp-route-id="@restaurantID">Add Food</a>
+    <a class="btn btn-secondary mt-5" asp-action="List">Back to List</a>
 </div>
 
 @section Scripts {

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "List";
+    string cardStyle = User.IsInRole("Customer") ? "stretched-link" : "";
 }
 
 <h1>All Restuarants</h1>
@@ -9,14 +10,14 @@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        <a class="btn btn-info" asp-action="Add">   Add New   </a>
+        <a class="btn btn-info" asp-action="Add">Add New</a>
     </p>
 }
 
-<div class="row row-cols-1 row-cols-md-4">
+<div class="row row-cols-1 row-cols-md-3">
     @foreach (var item in Model)
     {
-        <div class="col mb-4">
+        <div class="col mb-3">
             <div class="card">
                 <img src="@item.LogoUrl" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -27,7 +28,7 @@
                         <span class="badge badge-info">Rating: 9</span>
                     </h6>
                     <div class="d-flex justify-content-around">
-                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.RestaurantID">Details</a>
+                        <a class="btn btn-primary @cardStyle" asp-action="Details" asp-route-id="@item.RestaurantID">Details</a>
                         @if (User.IsInRole("Admin"))
                         {
                             <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.RestaurantID">Edit</a>

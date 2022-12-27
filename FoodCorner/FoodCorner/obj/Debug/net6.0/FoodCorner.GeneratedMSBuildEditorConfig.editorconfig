@@ -87,6 +87,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxBZGQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Restaurant/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Restaurant/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

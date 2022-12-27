@@ -44,11 +44,10 @@ namespace FoodCorner.Controllers
 
             return View(food);
         }
-        public string Add(int ?id)
+        public IActionResult Add(int ?id)
         {
             TempData["RestaurantID"] = id;
-            //return View();
-            return "id " + id;
+            return View();
         }
         [HttpPost]
         public IActionResult Add(Food food)
@@ -57,12 +56,9 @@ namespace FoodCorner.Controllers
             {
                 int restaurantID = (int)TempData["RestaurantID"];
                 food.RestaurantID = restaurantID;
-                if (ModelState.IsValid)
-                {
-                    this._context.Add(food);
-                    this._context.SaveChanges();
-                    return RedirectToAction("Index");
-                }
+                this._context.Add(food);
+                this._context.SaveChanges();
+                return RedirectToAction("Index");
             }
             return View("Error");
         }
