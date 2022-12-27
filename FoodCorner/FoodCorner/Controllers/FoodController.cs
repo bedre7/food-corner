@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FoodCorner.Data;
 using FoodCorner.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FoodCorner.Controllers
 {
@@ -19,14 +20,12 @@ namespace FoodCorner.Controllers
             _context = context;
         }
 
-        // GET: Foods
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Foods.Include(f => f.Restaurant);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Foods/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Foods == null)
@@ -44,12 +43,14 @@ namespace FoodCorner.Controllers
 
             return View(food);
         }
-        public IActionResult Add(int ?id)
+        [Authorize(Roles = "Admin")]
+        public IActionResult Add(int? id)
         {
             TempData["RestaurantID"] = id;
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Add(Food food)
         {
             if (TempData["RestaurantID"] != null)
@@ -58,29 +59,11 @@ namespace FoodCorner.Controllers
                 food.RestaurantID = restaurantID;
                 this._context.Add(food);
                 this._context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View("Error");
         }
-
-        // POST: Foods/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FoodID,Name,ImageUrl,Price,RestaurantID")] Food food)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(food);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["RestaurantID"] = new SelectList(_context.Restaurants, "RestaurantID", "Address", food.RestaurantID);
-            return View(food);
-        }
-
-        // GET: Foods/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Foods == null)
@@ -93,13 +76,11 @@ namespace FoodCorner.Controllers
             {
                 return NotFound();
             }
-            ViewData["RestaurantID"] = new SelectList(_context.Restaurants, "RestaurantID", "Address", food.RestaurantID);
+            ViewData["RestaurantID"] = new SelectList(_context.Restaurants, "RestaurantID", "Name", food.RestaurantID);
+
             return View(food);
         }
 
-        // POST: Foods/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("FoodID,Name,ImageUrl,Price,RestaurantID")] Food food)
@@ -109,31 +90,26 @@ namespace FoodCorner.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(food);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FoodExists(food.FoodID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(food);
+                await _context.SaveChangesAsync();
             }
-            ViewData["RestaurantID"] = new SelectList(_context.Restaurants, "RestaurantID", "Address", food.RestaurantID);
-            return View(food);
-        }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!FoodExists(food.FoodID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-        // GET: Foods/Delete/5
+            return RedirectToAction(nameof(Index));
+        }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Foods == null)
@@ -151,8 +127,6 @@ namespace FoodCorner.Controllers
 
             return View(food);
         }
-
-        // POST: Foods/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -166,14 +140,13 @@ namespace FoodCorner.Controllers
             {
                 _context.Foods.Remove(food);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool FoodExists(int id)
         {
-          return _context.Foods.Any(e => e.FoodID == id);
+            return _context.Foods.Any(e => e.FoodID == id);
         }
     }
 }

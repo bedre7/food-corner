@@ -50,9 +50,9 @@
                     <div class="d-flex justify-content-around">
                         @if (User.IsInRole("Admin"))
                         {
-                            <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.FoodID">Details</a>
-                            <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.FoodID">Edit</a>
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FoodID">Delete</a>
+                            <a class="btn btn-primary" asp-controller="Food" asp-action="Details" asp-route-id="@item.FoodID">Details</a>
+                            <a class="btn btn-info" asp-controller="Food" asp-action="Edit" asp-route-id="@item.FoodID">Edit</a>
+                            <a class="btn btn-danger" asp-controller="Food" asp-action="Delete" asp-route-id="@item.FoodID">Delete</a>
                         }
                         else if (User.IsInRole("Customer"))
                         {
@@ -65,5 +65,5 @@
     }
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.RestaurantID">Edit</a> |
-    <a asp-action="List">Back to List</a>
+    <a asp-action="Index">Back to List</a>
 </div>

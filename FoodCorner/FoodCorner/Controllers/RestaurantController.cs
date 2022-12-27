@@ -2,7 +2,9 @@
 using FoodCorner.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace FoodCorner.Controllers
 {
@@ -16,7 +18,7 @@ namespace FoodCorner.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_db.Restaurants);
         }
         public IActionResult Details(int? id)
         {
@@ -24,17 +26,17 @@ namespace FoodCorner.Controllers
             {
                 return View("Error");
             }
-            var restaurant = _db.Restaurants.FirstOrDefault(r => r.RestaurantID == id);
+            var restaurant = _db.Restaurants.
+                                FirstOrDefault(r => r.RestaurantID == id);
             if (restaurant == null)
             {
                 ViewBag.error = "No such restaurant was found";
-                return View("Error");
+                return View(nameof(Error));
             }
-            var restaurantFoods = this._db.Foods
-                                    .Include(f => f.Restaurant)
-                                    .Where(f => f.RestaurantID == restaurant.RestaurantID)
-                                    .ToList();
-
+            var restaurantFoods = _db.Foods
+                                   .Include(f => f.Restaurant)
+                                   .Where(f => f.RestaurantID == restaurant.RestaurantID)
+                                   .ToList();
             TempData["RestaurantFoods"] = restaurantFoods;
 
             return View(restaurant);
@@ -45,15 +47,34 @@ namespace FoodCorner.Controllers
             return View();
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null || _db.Restaurants == null)
+            {
+                return NotFound();
+            }
+
+            var restaurant = await _db.Restaurants.FindAsync(id);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            return View(restaurant);
         }
         [HttpPost]
-        public IActionResult Edit(int? id)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int? id, Restaurant restaurant)
         {
-            //check validity
-            return View();
+            if (id != restaurant.RestaurantID)
+            {
+                return NotFound();
+            }
+
+            _db.Update(restaurant);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
         [HttpPost]
         public IActionResult Add(Restaurant restaurant)
@@ -66,10 +87,6 @@ namespace FoodCorner.Controllers
             }
             return View();
         }
-        public IActionResult List()
-        {
-            return View(_db.Restaurants);
-        }
         [Authorize(Roles = "Admin")]
         public IActionResult AddFood(int? id)
         {
@@ -78,7 +95,7 @@ namespace FoodCorner.Controllers
                 ViewBag.error = "Page is of unknown resource!";
                 return RedirectToAction(nameof(Error));
             }
-            Restaurant restaurant = this._db.Restaurants.FirstOrDefault(r => r.RestaurantID == id);
+            var restaurant = this._db.Restaurants.FirstOrDefault(r => r.RestaurantID == id);
             if (restaurant == null)
             {
                 ViewBag.error = "No such restaurant was found";
@@ -86,6 +103,50 @@ namespace FoodCorner.Controllers
             }
 
             return RedirectToAction("Add", "Food", new { id });
+        }
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _db.Restaurants == null)
+            {
+                return NotFound();
+            }
+
+            var restaurant = await _db.Restaurants
+                .Include(f => f.Foods)
+                .FirstOrDefaultAsync(m => m.RestaurantID == id);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            return View(restaurant);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var restaurant = await _db.Restaurants
+                                   .Include(r => r.Foods)
+                                   .FirstOrDefaultAsync(m => m.RestaurantID == id);
+
+            if (restaurant == null)
+            {
+                ViewBag.error = "No such restaurant was found";
+                return View(nameof(Error));
+            }
+            
+            bool hasFoods = restaurant?.Foods.Count > 0;
+            if (hasFoods)
+            {
+                ViewBag.error = "Can not delete restaurant since it has dependencies associated with it";
+                return View(nameof(Error));
+            }
+
+            _db.Restaurants.Remove(restaurant);
+            await _db.SaveChangesAsync();
+            
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult Error()
         {
