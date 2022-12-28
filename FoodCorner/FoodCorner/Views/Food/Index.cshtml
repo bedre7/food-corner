@@ -6,48 +6,60 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Add">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Restaurant)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <img src="@item.ImageUrl" style="height:150px; width:auto"/>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Restaurant.Address)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FoodID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FoodID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FoodID">Delete</a>
-            </td>
-        </tr>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Add">Add New</a>
+    </p>
 }
-    </tbody>
-</table>
+
+<div class="row row-cols-1 row-cols-md-3 mt-5">
+    @foreach (var item in Model)
+    {
+        <div class="col mb-3">
+            <div class="card">
+                <img src="@item.ImageUrl" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">@item.Name</h3>
+                    <h5 class="mb-2">@item.Price ₺</h5>
+                    <div class="d-flex justify-content-around">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-primary" asp-controller="Food" asp-action="Details" asp-route-id="@item.FoodID">Details</a>
+                            <a class="btn btn-info" asp-controller="Food" asp-action="Edit" asp-route-id="@item.FoodID">Edit</a>
+                            <a class="btn btn-danger" asp-controller="Food" asp-action="Delete" asp-route-id="@item.FoodID">Delete</a>
+                        }
+                        else if (User.IsInRole("Customer"))
+                        {
+                            <a class="btn btn-primary" asp-action="Order" asp-route-id="@item.FoodID">Order Now</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    @*<a class="btn btn-primary" asp-action="Order" asp-route-id="@item.FoodID">Place Order</a>*@
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Modal body..
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
