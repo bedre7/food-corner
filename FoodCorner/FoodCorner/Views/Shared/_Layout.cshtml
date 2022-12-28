@@ -10,6 +10,8 @@
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>*@
     <link rel="stylesheet" href="~/css/flatly.css"/>
     <link rel="stylesheet" href="~/css/restaurant.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
     <header>
@@ -36,9 +38,15 @@
                             else if (User.IsInRole("Customer"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Yetki" asp-action="Admin">Customer</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Customer</a>
                                 </li>
                             }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Index">Restaurants</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Food" asp-action="Index">Menu</a>
+                            </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />

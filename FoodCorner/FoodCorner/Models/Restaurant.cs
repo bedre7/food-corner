@@ -14,7 +14,7 @@ namespace FoodCorner.Models
         [Required]
         [Display(Name = "Logo")]
         public string LogoUrl { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
         public ICollection<Review> Reviews { get; set; }
         public ICollection<Food> Foods { get; set; }
     }

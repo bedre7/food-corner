@@ -38,6 +38,10 @@ namespace FoodCorner.Controllers
                                    .Where(f => f.RestaurantID == restaurant.RestaurantID)
                                    .ToList();
             TempData["RestaurantFoods"] = restaurantFoods;
+            ViewBag.reviews = _db.Reviews
+                                 .Include(r => r.Restaurant)
+                                 .Where(m => m.RestaurantID == restaurant.RestaurantID)
+                                 .Count();
 
             return View(restaurant);
         }

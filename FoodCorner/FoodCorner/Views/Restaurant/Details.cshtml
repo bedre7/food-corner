@@ -5,12 +5,12 @@
     var restaurantFoods = (List<Food>)TempData["RestaurantFoods"];
 }
 
-<div class="jumbotron text-center bg-rest-image" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(@Model.LogoUrl);">
+<div class="jumbotron text-center bg-rest-image" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(@Model.LogoUrl); border-top-left-radius: 5px; border-top-right-radius: 5px;">
     <h1 class="text-white mt-5 mb-5">@Model.Name</h1>
 </div>
-<div class="custom-card" style="background-color: #b2c5de; border-radius: 5px">
+<div class="custom-card mb-5" style="background-color: #b2c5de; border-radius: 5px">
     <div class="custom-card">
-        <svg style="fill: 262c38" class="col-sm-2"
+        <svg style="fill: mediumvioletred" class="col-sm-2"
              version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
             <title>location</title>
             <path d="M16 0c-5.523 0-10 4.477-10 10 0 10 10 22 10 22s10-12 10-22c0-5.523-4.477-10-10-10zM16 16c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z"></path>
@@ -23,47 +23,77 @@
         </div>
     </div>
     <div class="custom-card">
-        <svg style="fill: #16889e" class="col-sm-2"
-             version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-            <title>star-full</title>
-            <path d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
-        </svg>
+        @Html.DisplayNameFor(model => model.Rating)
+        <div class="rating">
+            @for (int i = 0; i < Model.Rating; i++)
+            {
+                <svg style="fill: #ffd300" class="col-sm-2"
+                 version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                    <title>star-full</title>
+                    <path d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
+                </svg>
+            }
+        </div>
         <div class="custom-card">
-            @Html.DisplayNameFor(model => model.Rating)
             <dd class="col-sm-10" style="margin-top: 3px">
                 @Html.DisplayFor(model => model.Rating)
             </dd>
         </div>
     </div>
 </div>
-<a class="btn btn-info" asp-action="AddFood" asp-route-id="@Model.RestaurantID">Add Food</a>
-<h3>All Foods</h3>
-<div class="row row-cols-1 row-cols-md-3 mt-5">
-    @foreach (var item in restaurantFoods)
-    {
-        <div class="col mb-3">
-            <div class="card">
-                <img src="@item.ImageUrl" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h3 class="card-title mb-4">@item.Name</h3>
-                    <h5 class="mb-2">@item.Price ₺</h5>
-                    <div class="d-flex justify-content-around">
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a class="btn btn-primary" asp-controller="Food" asp-action="Details" asp-route-id="@item.FoodID">Details</a>
-                            <a class="btn btn-info" asp-controller="Food" asp-action="Edit" asp-route-id="@item.FoodID">Edit</a>
-                            <a class="btn btn-danger" asp-controller="Food" asp-action="Delete" asp-route-id="@item.FoodID">Delete</a>
-                        }
-                        else if (User.IsInRole("Customer"))
-                        {
-                            <a class="btn btn-primary" asp-action="Order" asp-route-id="@item.FoodID">Order</a>
-                        }
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Menu</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reviews (@ViewBag.reviews)</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">About</button>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <a class="btn btn-info mt-5" asp-action="AddFood" asp-route-id="@Model.RestaurantID">Add Food</a>
+        <div class="row row-cols-1 row-cols-md-3 mt-5">
+            @foreach (var item in restaurantFoods)
+            {
+                <div class="col mb-3">
+                    <div class="card">
+                        <img src="@item.ImageUrl" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h3 class="card-title mb-4">@item.Name</h3>
+                            <h5 class="mb-2">@item.Price ₺</h5>
+                            <div class="d-flex justify-content-around">
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a class="btn btn-primary" asp-controller="Food" asp-action="Details" asp-route-id="@item.FoodID">Details</a>
+                                    <a class="btn btn-info" asp-controller="Food" asp-action="Edit" asp-route-id="@item.FoodID">Edit</a>
+                                    <a class="btn btn-danger" asp-controller="Food" asp-action="Delete" asp-route-id="@item.FoodID">Delete</a>
+                                }
+                                else if (User.IsInRole("Customer"))
+                                {
+                                    <a class="btn btn-primary" asp-action="Order" asp-route-id="@item.FoodID">Order</a>
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
+            }
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model?.RestaurantID">Edit</a> |
+                <a asp-action="Index">Back to List</a>
             </div>
         </div>
-    }
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.RestaurantID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Reviews</div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
 </div>
+
+<script>
+    var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
+    triggerTabList.forEach(function (triggerEl) {
+        var tabTrigger = new bootstrap.Tab(triggerEl)
+
+        triggerEl.addEventListener('click', function (event) {
+            event.preventDefault()
+            tabTrigger.show()
+        })
+    })
+</script>
