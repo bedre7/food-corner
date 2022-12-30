@@ -8,7 +8,6 @@ namespace FoodCorner.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
-            //return RedirectToAction("Index", "Restaurant");
             return View();
         }
         [Authorize(Roles = "Admin")]

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FoodCorner.Data;
 using FoodCorner.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace FoodCorner.Controllers
 {
@@ -142,11 +143,36 @@ namespace FoodCorner.Controllers
             }
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
         private bool FoodExists(int id)
         {
             return _context.Foods.Any(e => e.FoodID == id);
+        }
+        [Authorize(Roles = "Customer")]
+        public IActionResult Order(int id)
+        {
+            if (id == null || _context.Foods == null)
+            {
+                return NotFound();
+            }
+
+            var orderedFood = _context.Foods.Find(id);
+
+            if (orderedFood == null)
+            {
+                return NotFound();
+            }
+
+            string _userID = (string)User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.Users.FirstOrDefault(u => u.Id == _userID);
+
+            Order newOrder = new Order { FoodID = id, UserID = _userID, OrderedBy = user, OrderedItem = orderedFood };
+            _context.Add(newOrder);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Order");
         }
     }
 }

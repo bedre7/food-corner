@@ -16,5 +16,7 @@ namespace FoodCorner.Data
             : base(options)
         {
         }
+
+        public DbSet<FoodCorner.Models.Cart> Cart { get; set; }
     }
 }

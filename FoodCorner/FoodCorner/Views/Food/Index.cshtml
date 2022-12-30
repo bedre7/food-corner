@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Our Menu</h1>
 
 @if (User.IsInRole("Admin"))
 {
@@ -31,7 +31,7 @@
                         }
                         else if (User.IsInRole("Customer"))
                         {
-                            <a class="btn btn-primary" asp-action="Order" asp-route-id="@item.FoodID">Order Now</a>
+                            <a food-id="@item.FoodID" class="btn btn-primary stretched-link" asp-action="Order" asp-route-id="@item.FoodID">Order Now</a>
                         }
                     </div>
                 </div>
@@ -39,27 +39,36 @@
         </div>
     }
 </div>
-<div>
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
 
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Modal Heading</h4>
-                    @*<a class="btn btn-primary" asp-action="Order" asp-route-id="@item.FoodID">Place Order</a>*@
-                </div>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
-                <!-- Modal body -->
-                <div class="modal-body">
-                    Modal body..
-                </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
 
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
+
     </div>
+</div>
+<script>
+    const modal = document.getElementById('exampleModalCenter')
+    const modalClickHandler = () =>
+    {
+        modal.setAttribute("aria-hidden", "false");
+        console.log("clicked");
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
