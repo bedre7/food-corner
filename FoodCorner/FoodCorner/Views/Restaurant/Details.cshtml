@@ -5,7 +5,7 @@
     var restaurantFoods = (List<Food>)TempData["RestaurantFoods"];
 }
 
-<div class="jumbotron text-center bg-rest-image" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(@Model.LogoUrl); border-top-left-radius: 5px; border-top-right-radius: 5px;">
+<div class="jumbotron text-center bg-rest-image" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.25)), url(@Model.LogoUrl); border-top-left-radius: 5px; border-top-right-radius: 5px;">
     <h1 class="text-white mt-5 mb-5">@Model.Name</h1>
 </div>
 <div class="custom-card mb-5" style="background-color: #dde4e4; border-radius: 5px">
@@ -50,7 +50,10 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-        <a class="btn btn-info mt-5" asp-action="AddFood" asp-route-id="@Model.RestaurantID">Add Food</a>
+         @if (User.IsInRole("Admin"))
+        {
+            <a class="btn btn-info mt-5" asp-action="AddFood" asp-route-id="@Model.RestaurantID">Add Food</a>
+        }
         <div class="row row-cols-1 row-cols-md-3 mt-5">
             @foreach (var item in restaurantFoods)
             {
@@ -77,8 +80,11 @@
                 </div>
             }
             <div>
-                <a asp-action="Edit" asp-route-id="@Model?.RestaurantID">Edit</a> |
-                <a asp-action="Index">Back to List</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model?.RestaurantID">Edit</a>
+                }
+                <a class="btn btn-secondary" asp-action="Index">Back to List</a>
             </div>
         </div>
     </div>

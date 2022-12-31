@@ -153,20 +153,14 @@ namespace FoodCorner.Controllers
             return RedirectToAction(nameof(Index));
         }
         [Authorize(Roles = "Customer")]
-        public IActionResult Order(int? id)
+        public IActionResult Order(int id)
         {
             if (id == null || _db.Restaurants == null)
             {
                 return NotFound();
             }
 
-            var restaurant = _db.Restaurants.Find(id);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-
-            return RedirectToAction("Order", "Food");
+            return RedirectToAction("Order", "Food", new { id });
         }
         public IActionResult Error()
         {

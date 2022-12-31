@@ -15,5 +15,6 @@ namespace FoodCorner.Models
         public int Price { get; set; } 
         public int RestaurantID { get; set; }
         public Restaurant Restaurant { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }
