@@ -1,0 +1,29 @@
+﻿@model IEnumerable<FoodCorner.Models.Review>
+
+@{
+    ViewData["Title"] = "_ReviewsPartial";
+    int restaurantID = ((List<Review>)Model)[0].RestaurantID;
+}
+
+<p>
+    <a asp-action="Add" asp-route-id="@restaurantID">Write a Review</a>
+</p>
+
+<div class="container review">
+    @foreach (var item in Model)
+    {
+        <div class="review-item">
+            <p>@item.ReviewText</p>
+            <div class="rating">
+                @for (int i = 0; i < item.Rating; i++)
+                {
+                    <svg style="fill: #ffd300" class="col-sm-2"
+                        version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                        <title>star-full</title>
+                        <path d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
+                    </svg>
+                }
+            </div>
+        </div>
+    }
+</div>

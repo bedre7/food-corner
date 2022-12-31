@@ -9,18 +9,23 @@ using FoodCorner.Data;
 using FoodCorner.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace FoodCorner.Controllers
 {
     public class FoodController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public FoodController(ApplicationDbContext context)
+        private INotyfService _toastNotification;
+        public FoodController(ApplicationDbContext context, INotyfService toastNotification)
         {
             _context = context;
+            _toastNotification = toastNotification;
         }
-
+        public void OnOrder()
+        {
+            _toastNotification.Success("Placed your order!", 10);
+        }
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Foods.Include(f => f.Restaurant);
@@ -171,6 +176,7 @@ namespace FoodCorner.Controllers
             Order newOrder = new Order { FoodID = id, UserID = _userID, OrderedBy = user, OrderedItem = orderedFood };
             _context.Add(newOrder);
             _context.SaveChanges();
+            OnOrder();
 
             return RedirectToAction("Index", "Order");
         }

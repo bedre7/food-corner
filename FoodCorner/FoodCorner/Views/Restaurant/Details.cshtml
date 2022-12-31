@@ -2,7 +2,8 @@
 
 @{
     ViewData["Title"] = "Details";
-    var restaurantFoods = (List<Food>)TempData["RestaurantFoods"];
+    var restaurantMenu = (List<Food>)TempData["RestaurantMenu"];
+    var reviews = (List<Review>)TempData["Reviews"];
 }
 
 <div class="jumbotron text-center bg-rest-image" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.25)), url(@Model.LogoUrl); border-top-left-radius: 5px; border-top-right-radius: 5px;">
@@ -50,12 +51,12 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-         @if (User.IsInRole("Admin"))
+        @if (User.IsInRole("Admin"))
         {
             <a class="btn btn-info mt-5" asp-action="AddFood" asp-route-id="@Model.RestaurantID">Add Food</a>
         }
         <div class="row row-cols-1 row-cols-md-3 mt-5">
-            @foreach (var item in restaurantFoods)
+            @foreach (var item in restaurantMenu)
             {
                 <div class="col mb-3">
                     <div class="card">
@@ -88,8 +89,12 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Reviews</div>
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <partial name="~/Views/Review/Partial/_ReviewsPartial.cshtml" model="@reviews" id="@Model.RestaurantID"/>
+    </div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <partial name="~/Views/Cart/Partial/_CartIconPartial.cshtml" />
+    </div>
 </div>
 
 <script>

@@ -33,11 +33,20 @@ namespace FoodCorner.Controllers
                 ViewBag.error = "No such restaurant was found";
                 return View(nameof(Error));
             }
-            var restaurantFoods = _db.Foods
+            var restaurantMenu = _db.Foods
                                    .Include(f => f.Restaurant)
                                    .Where(f => f.RestaurantID == restaurant.RestaurantID)
                                    .ToList();
-            TempData["RestaurantFoods"] = restaurantFoods;
+            
+            var restaurantReviews =
+                (from reviews in _db.Reviews
+                 join rest in _db.Restaurants on reviews.RestaurantID equals rest.RestaurantID
+                 where rest.RestaurantID == reviews.RestaurantID
+                 select reviews).ToList();
+                 
+
+            TempData["RestaurantMenu"] = restaurantMenu;
+            TempData["Reviews"] = restaurantReviews;
             ViewBag.reviews = _db.Reviews
                                  .Include(r => r.Restaurant)
                                  .Where(m => m.RestaurantID == restaurant.RestaurantID)

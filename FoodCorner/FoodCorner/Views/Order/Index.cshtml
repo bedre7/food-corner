@@ -12,21 +12,21 @@
         {
             <div class="cart-item">
                 <div>
-                    <img src="@item.foodImage" class="cart-img" />
+                    <img src="@item.imageUrl" class="cart-img" />
                 </div>
                 <div class="cart-description">
-                    <h3>@item.foodName</h3>
-                    <h4>₺@item.price ₺</h4>
+                    <h3 class="text-center">@item.orderName</h3>
+                    <h4 class="text-center">₺@item.price ₺</h4>
                 </div>
                 <div class="cart-button">
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.foodID">Remove From Cart</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.orderID">Remove From Cart</a>
                 </div>
             </div>
         }
     </div>
     <div class="checkout">
         <div>
-            <h3>Total:  ₺</h3>
+            <h3>Total:  @ViewBag.totalPrice ₺</h3>
         </div>
         <a class="btn btn-info" asp-action="Checkout">Proceed to Checkout</a>
     </div>

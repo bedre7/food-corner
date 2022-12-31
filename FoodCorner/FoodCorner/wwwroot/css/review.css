@@ -1,0 +1,18 @@
+﻿.review {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 100px;
+}
+
+.review-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 150px;
+    border-radius: 7px;
+    box-shadow: 1px 3px 5px gray;
+    margin: 15px 0 15px 0;
+    padding: 10px;
+    background-color: #d9e2ea;
+}

@@ -11,7 +11,7 @@ build_property.RootNamespace = FoodCorner
 build_property.ProjectDir = D:\@Uni\Class V\5. Web Programming\FoodCorner\FoodCorner\FoodCorner\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = D:\@Uni\Class V\5. Web Programming\FoodCorner\FoodCorner\FoodCorner
 build_property._RazorSourceGeneratorDebug = 
 
@@ -117,6 +117,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Restaurant/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Review/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3XEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Review/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Review/Partial/_ReviewsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3XFBhcnRpYWxcX1Jldmlld3NQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Shared/Error.cshtml]
