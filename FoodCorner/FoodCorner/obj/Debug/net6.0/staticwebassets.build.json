@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WGIQDV0liUSGrMb6FmAYDH3EqP5cENnONLwhlfpYLXk=",
+  "Hash": "h0rRuWix4+CcwmE650+l8gpC5PC7hGjkWM/Tmz92duo=",
   "Source": "FoodCorner",
   "BasePath": "_content/FoodCorner",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\FoodCorner.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\css\\cart.css",
+      "SourceId": "FoodCorner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\",
+      "BasePath": "_content/FoodCorner",
+      "RelativePath": "css/cart.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\cart.css"
     },
     {
       "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\css\\flatly.css",
@@ -2157,6 +2174,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\svg\\cart.svg",
+      "SourceId": "FoodCorner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\",
+      "BasePath": "_content/FoodCorner",
+      "RelativePath": "svg/cart.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\svg\\cart.svg"
+    },
+    {
+      "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\svg\\credit-card.svg",
+      "SourceId": "FoodCorner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\",
+      "BasePath": "_content/FoodCorner",
+      "RelativePath": "svg/credit-card.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\svg\\credit-card.svg"
     },
     {
       "Identity": "D:\\@Uni\\Class V\\5. Web Programming\\FoodCorner\\FoodCorner\\FoodCorner\\wwwroot\\svg\\location.svg",

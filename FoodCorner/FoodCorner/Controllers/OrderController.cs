@@ -16,12 +16,22 @@ namespace FoodCorner.Controllers
         public IActionResult Index()
         {
             string _userID = (string)User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userOrders = _context.Orders
-                                    .Include(o => o.FoodID)
-                                    .Include(u => u.UserID)
-                                    .FirstOrDefault(u => u.UserID == _userID);
-            //ViewBag.orderedItem = 
-            return View(_context.Orders.ToList());
+
+            var userOrders = 
+                ( from o in _context.Orders
+                  join u in _context.Users on o.UserID equals u.Id
+                  join f in _context.Foods on o.FoodID equals f.FoodID
+                  where u.Id == _userID
+                  select new
+                  {
+                      foodID = f.FoodID,
+                      foodImage = f.ImageUrl,
+                      foodName = f.Name,
+                      price = f.Price,
+                  }).ToList();
+
+            ViewBag.cartItems = userOrders;
+            return View();
         }
     }
 }

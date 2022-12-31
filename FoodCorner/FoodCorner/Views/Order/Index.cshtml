@@ -2,35 +2,34 @@
 
 @{
     ViewData["Title"] = "Index";
+    var cartItems = ViewBag.cartItems;
 }
 
 <h1>My cart</h1>
+<div class="container cart-body">
+    <div class="cart">
+        @foreach (var item in cartItems)
+        {
+            <div class="cart-item">
+                <div>
+                    <img src="@item.foodImage" class="cart-img" />
+                </div>
+                <div class="cart-description">
+                    <h3>@item.foodName</h3>
+                    <h4>₺@item.price ₺</h4>
+                </div>
+                <div class="cart-button">
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.foodID">Remove From Cart</a>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="checkout">
+        <div>
+            <h3>Total:  ₺</h3>
+        </div>
+        <a class="btn btn-info" asp-action="Checkout">Proceed to Checkout</a>
+    </div>
+</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderedItem)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderedItem.ImageUrl)
-            </td>
-            <td>
-                <a class="button btn-danger" asp-action="Delete" asp-route-id="@item.OrderID">Remove From Cart</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
