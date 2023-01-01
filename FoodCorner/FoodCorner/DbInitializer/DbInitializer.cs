@@ -2,7 +2,6 @@
 using FoodCorner.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace FoodCorner.DbInitializer
 {
@@ -11,14 +10,12 @@ namespace FoodCorner.DbInitializer
         private UserManager<User> userManager;
         private RoleManager<IdentityRole> roleManager;
         private ApplicationDbContext _context;
-
         public DbInitializer(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             _context = context;
         }
-
         private static async Task InitializeRoles(RoleManager<IdentityRole> roleManager)
         {
             string[] roles = { "Admin", "Customer" };
