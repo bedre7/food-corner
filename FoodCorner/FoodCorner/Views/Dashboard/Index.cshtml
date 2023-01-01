@@ -29,21 +29,21 @@
         <img class="card-img-top mb-5" src="https://img.freepik.com/premium-photo/waiters-serve-table_124271-1.jpg?w=1060" alt="Card image cap">
         <div class="card-body mt-3">
             <h5 class="card-title">@Localizer["Restaurants"]</h5>
-            <a asp-controller="Restaurant" asp-action="Index" class="btn btn-primary stretched-link">View</a>
+            <a asp-controller="Restaurant" asp-action="Index" class="btn btn-primary stretched-link">@Localizer["View"]</a>
         </div>
     </div> 
     <div class="card m-3" style="width: 18rem;">
         <img class="card-img-top" src="https://thumbs.dreamstime.com/b/food-delivery-logo-template-vector-icon-illustration-170869600.jpg" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">@Localizer["Menu"]</h5>
-            <a asp-controller="Food" asp-action="Index" class="btn btn-primary stretched-link">View</a>
+            <a asp-controller="Food" asp-action="Index" class="btn btn-primary stretched-link">@Localizer["View"]</a>
         </div>
     </div> 
     <div class="card m-3" style="width: 18rem;">
         <img class="card-img-top" src="https://thumbs.dreamstime.com/b/order-grocery-online-app-smart-phone-fast-delivery-concept-illustration-food-icons-hand-supermarket-shopping-163592241.jpg" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">@Localizer["Orders"]</h5>
-            <a asp-controller="Restaurant" asp-action="Index" class="btn btn-primary stretched-link">View</a>
+            <a asp-controller="Dashboard" asp-action="AllOrders" class="btn btn-primary stretched-link">@Localizer["View"]</a>
         </div>
     </div>
 </div>

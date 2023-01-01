@@ -19,9 +19,9 @@ namespace FoodCorner.Controllers
            AppUrl = "https://localhost:7043/api/OrderAPI";
             _toastNotification = toastNotification;
         }
-        public void OnGet()
+        public void OnSuccess(string message)
         {
-            _toastNotification.Success("Removed order succesfully", 10);
+            _toastNotification.Success(message, 10);
         }
         public async Task<IActionResult> Index()
         {
@@ -43,7 +43,7 @@ namespace FoodCorner.Controllers
         {
             var httpClient = new HttpClient();
             await httpClient.DeleteAsync($"{this.AppUrl}/{id}");
-            OnGet();
+            OnSuccess("Removed order succesfully");
 
             return RedirectToAction("Index");
         }

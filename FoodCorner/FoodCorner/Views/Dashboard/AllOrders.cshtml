@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "List";
+
+}
+
+<h1>List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ordered Item
+            </th>
+            <th>
+                Restaurant
+            </th>
+            <th>
+                Customer
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.allOrders)
+        {
+            <tr>
+                <td>
+                    @item.orderedItem
+                </td>
+                <td>
+                    @item.restaurant
+               </td>
+                <td>
+                    @item.customer
+                </td> 
+                <td>
+                    @item.price
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

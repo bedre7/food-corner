@@ -39,7 +39,7 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        @if (User.IsInRole("Customer"))
+        @if (!User.IsInRole("Admin"))
         {
             <li class="nav-item">
                 <a class="nav-link text-dark cart-link" asp-action="Index" asp-controller="Order">

@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Food delivery made easy" xml:space="preserve">
+    <value>Yemek siparpşi artık çok kolay</value>
+  </data>
+  <data name="Get your favorite dishes right at your doorstep!" xml:space="preserve">
+    <value>En sevdiğiniz yemekler anında kapınızda!</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Anasayfa</value>
-  </data>
-  <data name="Uyg" xml:space="preserve">
-    <value>Application</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Hosgeldiniz</value>
   </data>
 </root>

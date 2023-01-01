@@ -126,4 +126,7 @@
   <data name="Restaurants" xml:space="preserve">
     <value>Restoranlar</value>
   </data>
+  <data name="View" xml:space="preserve">
+    <value>Görüntüle</value>
+  </data>
 </root>

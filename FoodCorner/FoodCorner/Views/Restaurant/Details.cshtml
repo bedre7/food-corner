@@ -94,7 +94,7 @@
                                     <a class="btn btn-info" asp-controller="Food" asp-action="Edit" asp-route-id="@item.FoodID">@Localizer["Edit"]</a>
                                     <a class="btn btn-danger" asp-controller="Food" asp-action="Delete" asp-route-id="@item.FoodID">@Localizer["Delete"]</a>
                                 }
-                                else if (User.IsInRole("Customer"))
+                                else
                                 {
                                     <a class="btn btn-primary stretched-link" asp-action="Order" asp-route-id="@item.FoodID">@Localizer["Order Now"]</a>
                                 }
@@ -113,11 +113,14 @@
         </div>
     </div>
     <div class="tab-pane fade tabs" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-        <p>
-            <a class="btn btn-secondary" asp-controller="Review" asp-action="Add" asp-route-id="@Model.RestaurantID">@Localizer["Write a Review"]</a>
-        </p>
+        @if(!User.IsInRole("Admin"))
+        {
+            <p class="mt-5 mb-5">
+                <a class="btn btn-secondary" asp-controller="Review" asp-action="Add" asp-route-id="@Model.RestaurantID">@Localizer["Write a Review"]</a>
+            </p>
+        }
 
-        <div class="container review">
+        <div class="container">
             @foreach (var item in reviews)
             {
                 <div class="review-item">

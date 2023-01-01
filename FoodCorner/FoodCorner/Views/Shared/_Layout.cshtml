@@ -34,7 +34,9 @@
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>*@
     <link rel="stylesheet" href="~/css/flatly.css" />
     <link rel="stylesheet" href="~/css/restaurant.css" />
-    <link rel="stylesheet" href="~/css/cart.css" />
+    <link rel="stylesheet" href="~/css/cart.css" />    
+    <link rel="stylesheet" href="~/css/review.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
@@ -42,7 +44,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FoodCorner</a>
+                <a class="navbar-brand header-custom" asp-area="" asp-controller="Home" asp-action="Index">FoodCorner</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -60,7 +62,7 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                                 </li>
                             }
-                            else if (User.IsInRole("Customer"))
+                            else
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Customer"]</a>

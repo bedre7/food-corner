@@ -59,6 +59,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxQYXJ0aWFsXF9DYXJ0SWNvblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Dashboard/AllOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEFsbE9yZGVycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Dashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -93,6 +97,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Order/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Order/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/@Uni/Class V/5. Web Programming/FoodCorner/FoodCorner/FoodCorner/Views/Restaurant/Add.cshtml]

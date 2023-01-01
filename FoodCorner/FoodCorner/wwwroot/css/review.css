@@ -1,10 +1,4 @@
-﻿.review {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    column-gap: 100px;
-}
-
-.review-item {
+﻿.review-item {
     display: flex;
     align-items: center;
     justify-content: space-between;

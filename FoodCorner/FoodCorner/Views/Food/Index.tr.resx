@@ -129,10 +129,10 @@
   <data name="Edit" xml:space="preserve">
     <value>Düzenle</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menü</value>
+  </data>
   <data name="Order Now" xml:space="preserve">
     <value>Sipariş Ver</value>
-  </data>
-  <data name="Restaurant's Menu" xml:space="preserve">
-    <value>Restoran Menüsü</value>
   </data>
 </root>

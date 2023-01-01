@@ -24,7 +24,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    string cardStyle = User.IsInRole("Customer") ? "stretched-link" : "";
+    string cardStyle = User.IsInRole("Admin") ? "" : "stretched-link";
 }
 
 <h1>@Localizer["All Restuarants"]</h1>

@@ -33,3 +33,8 @@ body {
     margin-left: 5px;
     width: 50%;
 }
+
+.header-custom {
+    font-family: 'Dancing Script', cursive;
+    font-size: 35px;
+}

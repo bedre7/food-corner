@@ -1,4 +1,5 @@
-﻿using FoodCorner.Data;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using FoodCorner.Data;
 using FoodCorner.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,20 @@ namespace FoodCorner.Controllers
     {
         private ApplicationDbContext _db;
         private readonly IStringLocalizer<RestaurantController> _localizer;
-        public RestaurantController(ApplicationDbContext _db, IStringLocalizer<RestaurantController> localizer)
+        private readonly INotyfService _toastNotification;
+        public RestaurantController(ApplicationDbContext _db, IStringLocalizer<RestaurantController> localizer, INotyfService toastNotification)
         {
             this._db = _db;
             _localizer = localizer;
+            _toastNotification = toastNotification;
+        }
+        public void OnSuccess(string message)
+        {
+            _toastNotification.Success(message, 10);
+        }
+        public void OnFailure(string message)
+        {
+            _toastNotification.Error(message, 10);
         }
         public IActionResult Index()
         {
@@ -59,6 +70,15 @@ namespace FoodCorner.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Add()
         {
+            ViewBag.Rating = new List<SelectListItem>
+            {
+                new SelectListItem{ Value = "5", Text = "Excellent"},
+                new SelectListItem{ Value = "4", Text = "Very Good"},
+                new SelectListItem{ Value = "3", Text = "Good"},
+                new SelectListItem{ Value = "1", Text = "Not bad"},
+                new SelectListItem{ Value = "2", Text = "Very bad"},
+            };
+
             return View();
         }
         [Authorize(Roles = "Admin")]
@@ -74,6 +94,14 @@ namespace FoodCorner.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Rating = new List<SelectListItem>
+            {
+                new SelectListItem{ Value = "5", Text = "Excellent"},
+                new SelectListItem{ Value = "4", Text = "Very Good"},
+                new SelectListItem{ Value = "3", Text = "Good"},
+                new SelectListItem{ Value = "1", Text = "Not bad"},
+                new SelectListItem{ Value = "2", Text = "Very bad"},
+            };
 
             return View(restaurant);
         }
@@ -88,7 +116,7 @@ namespace FoodCorner.Controllers
 
             _db.Update(restaurant);
             await _db.SaveChangesAsync();
-
+            OnSuccess("Edited Restaurant details successfully");
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
@@ -98,7 +126,8 @@ namespace FoodCorner.Controllers
             {
                 _db.Restaurants.Add(restaurant);
                 _db.SaveChanges();
-                return RedirectToAction("List");
+                OnSuccess("Added new restaurant successfully");
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -155,15 +184,16 @@ namespace FoodCorner.Controllers
             if (hasFoods)
             {
                 ViewBag.error = "Can not delete restaurant since it has dependencies associated with it";
+                OnFailure("Can not delete restaurant since it has dependencies associated with it");
                 return View(nameof(Error));
             }
 
             _db.Restaurants.Remove(restaurant);
             await _db.SaveChangesAsync();
+            OnSuccess("Deleted resaurant successully");
             
             return RedirectToAction(nameof(Index));
         }
-        [Authorize(Roles = "Customer")]
         public IActionResult Order(int id)
         {
             if (id == null || _db.Restaurants == null)

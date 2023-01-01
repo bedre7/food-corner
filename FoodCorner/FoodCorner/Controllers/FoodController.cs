@@ -22,9 +22,9 @@ namespace FoodCorner.Controllers
             _context = context;
             _toastNotification = toastNotification;
         }
-        public void OnOrder()
+        public void OnSuccess(string message)
         {
-            _toastNotification.Success("Placed your order!", 10);
+            _toastNotification.Success(message, 10);
         }
         public async Task<IActionResult> Index()
         {
@@ -65,8 +65,10 @@ namespace FoodCorner.Controllers
                 food.RestaurantID = restaurantID;
                 this._context.Add(food);
                 this._context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                OnSuccess("Added menu successfully");
+                return RedirectToAction("Details", "Restaurant", new {id = restaurantID});
             }
+
             return View("Error");
         }
         [Authorize(Roles = "Admin")]
@@ -112,6 +114,7 @@ namespace FoodCorner.Controllers
                     throw;
                 }
             }
+            OnSuccess("Edited successfully");
 
             return RedirectToAction(nameof(Index));
         }
@@ -148,14 +151,13 @@ namespace FoodCorner.Controllers
             }
 
             await _context.SaveChangesAsync();
-
+            OnSuccess("Deleted record successfully!");
             return RedirectToAction(nameof(Index));
         }
         private bool FoodExists(int id)
         {
             return _context.Foods.Any(e => e.FoodID == id);
         }
-        [Authorize(Roles = "Customer")]
         public IActionResult Order(int id)
         {
             if (id == null || _context.Foods == null)
@@ -176,7 +178,7 @@ namespace FoodCorner.Controllers
             Order newOrder = new Order { FoodID = id, UserID = _userID, OrderedBy = user, OrderedItem = orderedFood };
             _context.Add(newOrder);
             _context.SaveChanges();
-            OnOrder();
+            OnSuccess("Placed your order!");
 
             return RedirectToAction("Index", "Order");
         }
