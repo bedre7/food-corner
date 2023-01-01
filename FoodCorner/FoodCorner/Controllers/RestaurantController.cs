@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using System.Linq;
 
 namespace FoodCorner.Controllers
@@ -11,10 +12,11 @@ namespace FoodCorner.Controllers
     public class RestaurantController : Controller
     {
         private ApplicationDbContext _db;
-
-        public RestaurantController(ApplicationDbContext _db)
+        private readonly IStringLocalizer<RestaurantController> _localizer;
+        public RestaurantController(ApplicationDbContext _db, IStringLocalizer<RestaurantController> localizer)
         {
             this._db = _db;
+            _localizer = localizer;
         }
         public IActionResult Index()
         {
@@ -41,7 +43,7 @@ namespace FoodCorner.Controllers
             var restaurantReviews =
                 (from reviews in _db.Reviews
                  join rest in _db.Restaurants on reviews.RestaurantID equals rest.RestaurantID
-                 where rest.RestaurantID == reviews.RestaurantID
+                 where reviews.RestaurantID == id
                  select reviews).ToList();
                  
 
@@ -101,7 +103,7 @@ namespace FoodCorner.Controllers
             return View();
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult AddFood(int? id)
+        public IActionResult AddMenu(int? id)
         {
             if (id == null)
             {

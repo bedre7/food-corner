@@ -18,5 +18,4 @@ namespace FoodCorner.Models
         public ICollection<Review> Reviews { get; set; }
         public ICollection<Food> Foods { get; set; }
     }
-
 }

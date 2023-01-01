@@ -1,15 +1,38 @@
 ﻿@model IEnumerable<FoodCorner.Models.Food>
 
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
+@{
+    string culture = "", uiculture = "";
+    if (Context.Request.QueryString.HasValue)
+    {
+        string url = Context.Request.QueryString.Value;
+        culture = Context.Request.Query["culture"];
+        uiculture = Context.Request.Query["ui-culture"];
+    }
+}
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Our Menu</h1>
+<h1>@Localizer["Restaurant's Menu"]</h1>
 
 @if (User.IsInRole("Admin"))
 {
     <p>
-        <a asp-action="Add">Add New</a>
+        <a asp-action="Add">@Localizer["Add New"]</a>
     </p>
 }
 
@@ -25,13 +48,13 @@
                     <div class="d-flex justify-content-around">
                         @if (User.IsInRole("Admin"))
                         {
-                            <a class="btn btn-primary" asp-controller="Food" asp-action="Details" asp-route-id="@item.FoodID">Details</a>
-                            <a class="btn btn-info" asp-controller="Food" asp-action="Edit" asp-route-id="@item.FoodID">Edit</a>
-                            <a class="btn btn-danger" asp-controller="Food" asp-action="Delete" asp-route-id="@item.FoodID">Delete</a>
+                            <a class="btn btn-primary" asp-controller="Food" asp-action="Details" asp-route-id="@item.FoodID">@Localizer["Details"]</a>
+                            <a class="btn btn-info" asp-controller="Food" asp-action="Edit" asp-route-id="@item.FoodID">@Localizer["Edit"]</a>
+                            <a class="btn btn-danger" asp-controller="Food" asp-action="Delete" asp-route-id="@item.FoodID">@Localizer["Delete"]</a>
                         }
                         else if (User.IsInRole("Customer"))
                         {
-                            <a food-id="@item.FoodID" class="btn btn-primary stretched-link" asp-action="Order" asp-route-id="@item.FoodID">Order Now</a>
+                            <a food-id="@item.FoodID" class="btn btn-primary stretched-link" asp-action="Order" asp-route-id="@item.FoodID">@Localizer["Order Now"]</a>
                         }
                     </div>
                 </div>

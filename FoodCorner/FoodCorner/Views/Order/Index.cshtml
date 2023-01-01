@@ -1,11 +1,32 @@
 ﻿@model IEnumerable<FoodCorner.Models.Order>
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Localization
 
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
+@{
+    string culture = "", uiculture = "";
+    if (Context.Request.QueryString.HasValue)
+    {
+        string url = Context.Request.QueryString.Value;
+        culture = Context.Request.Query["culture"];
+        uiculture = Context.Request.Query["ui-culture"];
+    }
+}
 @{
     ViewData["Title"] = "Index";
     var cartItems = ViewBag.cartItems;
 }
 
-<h1>My cart</h1>
+<h1>@Localizer["Your Orders"]</h1>
 <div class="container cart-body">
     <div class="cart">
         @foreach (var item in cartItems)
@@ -19,16 +40,16 @@
                     <h4 class="text-center">₺@item.price ₺</h4>
                 </div>
                 <div class="cart-button">
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.orderID">Remove From Cart</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.orderID">@Localizer["Remove From Cart"]</a>
                 </div>
             </div>
         }
     </div>
     <div class="checkout">
         <div>
-            <h3>Total:  @ViewBag.totalPrice ₺</h3>
+            <h3>@Localizer["Total"]:  @ViewBag.totalPrice ₺</h3>
         </div>
-        <a class="btn btn-info" asp-action="Checkout">Proceed to Checkout</a>
+        <a class="btn btn-info" href="#">@Localizer["Proceed to Checkout"]</a>
     </div>
 </div>
 

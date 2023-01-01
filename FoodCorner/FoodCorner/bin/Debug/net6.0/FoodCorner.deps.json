@@ -329,6 +329,14 @@
         "runtime": {
           "FoodCorner.dll": {}
         },
+        "resources": {
+          "tr/FoodCorner.resources.dll": {
+            "locale": "tr"
+          },
+          "en/FoodCorner.resources.dll": {
+            "locale": "en"
+          }
+        },
         "compile": {
           "FoodCorner.dll": {}
         }

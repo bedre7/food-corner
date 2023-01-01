@@ -1,16 +1,38 @@
 ﻿@model IEnumerable<FoodCorner.Models.Restaurant>
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
+@{
+    string culture = "", uiculture = "";
+    if (Context.Request.QueryString.HasValue)
+    {
+        string url = Context.Request.QueryString.Value;
+        culture = Context.Request.Query["culture"];
+        uiculture = Context.Request.Query["ui-culture"];
+    }
+}
 
 @{
     ViewData["Title"] = "Index";
     string cardStyle = User.IsInRole("Customer") ? "stretched-link" : "";
 }
 
-<h1>All Restuarants</h1>
+<h1>@Localizer["All Restuarants"]</h1>
 
 @if (User.IsInRole("Admin"))
 {
     <p>
-        <a class="btn btn-info" asp-action="Add">Add New</a>
+        <a class="btn btn-info" asp-action="Add">@Localizer["Add New"]</a>
     </p>
 }
 
@@ -24,14 +46,14 @@
                     <h3 class="card-title mb-4">@item.Name</h3>
                     <h5 class="mb-2">📌@item.Address</h5>
                     <h6 class="mb-1">
-                        <span class="badge badge-info">Rating: 9</span>
+                        <span class="badge badge-info">@Localizer["Rating"]: 9</span>
                     </h6>
                     <div class="d-flex justify-content-around">
-                        <a class="btn btn-primary @cardStyle" asp-action="Details" asp-route-id="@item.RestaurantID">Details</a>
+                        <a class="btn btn-primary @cardStyle" asp-action="Details" asp-route-id="@item.RestaurantID">@Localizer["Details"]</a>
                         @if (User.IsInRole("Admin"))
                         {
-                            <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.RestaurantID">Edit</a>
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.RestaurantID">Delete</a>
+                            <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.RestaurantID">@Localizer["Edit"]</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.RestaurantID">@Localizer["Delete"]</a>
                         }
                     </div>
                 </div>

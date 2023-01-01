@@ -1,5 +1,28 @@
 ﻿@model FoodCorner.Models.Restaurant
 
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
+@{
+    string culture = "", uiculture = "";
+    if (Context.Request.QueryString.HasValue)
+    {
+        string url = Context.Request.QueryString.Value;
+        culture = Context.Request.Query["culture"];
+        uiculture = Context.Request.Query["ui-culture"];
+    }
+}
+
 @{
     ViewData["Title"] = "Details";
     var restaurantMenu = (List<Food>)TempData["RestaurantMenu"];
@@ -24,7 +47,7 @@
         </div>
     </div>
     <div class="custom-card">
-        @Html.DisplayNameFor(model => model.Rating)
+        @Localizer["Rating"]
         <div class="rating">
             @for (int i = 0; i < Model.Rating; i++)
             {
@@ -44,16 +67,16 @@
 </div>
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Menu</button>
-        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reviews (@ViewBag.reviews)</button>
-        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">About</button>
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">@Localizer["Menu"]</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">@Localizer["Reviews"] (@ViewBag.reviews)</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">@Localizer["About"]</button>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="tab-pane fade show active tabs" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         @if (User.IsInRole("Admin"))
         {
-            <a class="btn btn-info mt-5" asp-action="AddFood" asp-route-id="@Model.RestaurantID">Add Food</a>
+            <a class="btn btn-info mt-5" asp-action="AddMenu" asp-route-id="@Model.RestaurantID">@Localizer["Add Menu"]</a>
         }
         <div class="row row-cols-1 row-cols-md-3 mt-5">
             @foreach (var item in restaurantMenu)
@@ -67,13 +90,13 @@
                             <div class="d-flex justify-content-around">
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <a class="btn btn-primary" asp-controller="Food" asp-action="Details" asp-route-id="@item.FoodID">Details</a>
-                                    <a class="btn btn-info" asp-controller="Food" asp-action="Edit" asp-route-id="@item.FoodID">Edit</a>
-                                    <a class="btn btn-danger" asp-controller="Food" asp-action="Delete" asp-route-id="@item.FoodID">Delete</a>
+                                    <a class="btn btn-primary" asp-controller="Food" asp-action="Details" asp-route-id="@item.FoodID">@Localizer["Details"]</a>
+                                    <a class="btn btn-info" asp-controller="Food" asp-action="Edit" asp-route-id="@item.FoodID">@Localizer["Edit"]</a>
+                                    <a class="btn btn-danger" asp-controller="Food" asp-action="Delete" asp-route-id="@item.FoodID">@Localizer["Delete"]</a>
                                 }
                                 else if (User.IsInRole("Customer"))
                                 {
-                                    <a class="btn btn-primary stretched-link" asp-action="Order" asp-route-id="@item.FoodID">Order Now</a>
+                                    <a class="btn btn-primary stretched-link" asp-action="Order" asp-route-id="@item.FoodID">@Localizer["Order Now"]</a>
                                 }
                             </div>
                         </div>
@@ -83,17 +106,38 @@
             <div>
                 @if (User.IsInRole("Admin"))
                 {
-                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model?.RestaurantID">Edit</a>
+                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model?.RestaurantID">@Localizer["Edit"]</a>
                 }
-                <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+                <a class="btn btn-secondary" asp-action="Index">@Localizer["Back to List"]</a>
             </div>
         </div>
     </div>
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-        <partial name="~/Views/Review/Partial/_ReviewsPartial.cshtml" model="@reviews" id="@Model.RestaurantID"/>
+    <div class="tab-pane fade tabs" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <p>
+            <a class="btn btn-secondary" asp-controller="Review" asp-action="Add" asp-route-id="@Model.RestaurantID">@Localizer["Write a Review"]</a>
+        </p>
+
+        <div class="container review">
+            @foreach (var item in reviews)
+            {
+                <div class="review-item">
+                    <p>@item.ReviewText</p>
+                    <div class="rating">
+                        @for (int i = 0; i < item.Rating; i++)
+                        {
+                            <svg style="fill: #ffd300" class="col-sm-2"
+                                version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                <title>star-full</title>
+                                <path d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
+                            </svg>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-        <partial name="~/Views/Cart/Partial/_CartIconPartial.cshtml" />
+    <div class="tab-pane fade tabs" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        @Localizer["About"]
     </div>
 </div>
 

@@ -22,7 +22,7 @@ namespace FoodCorner.Controllers
         }
         public IActionResult Index()
         {
-            return View(_context.Reviews);
+            return View(_context.Reviews.ToList());
         }
         public IActionResult Add(int id)
         {
@@ -36,7 +36,7 @@ namespace FoodCorner.Controllers
             };
 
             TempData["RestaurantID"] = id;
-            return Index();
+            return View();
         }
         [HttpPost]
         public IActionResult Add(Review review)
